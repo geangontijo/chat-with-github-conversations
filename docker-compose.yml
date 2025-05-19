@@ -1,0 +1,27 @@
+services:
+  pgvector:
+    image: ankane/pgvector
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./pgvector/scripts:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/postgresql/data:rw
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@pgvector:5432/postgres
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPY_API_KEY=${ANTHROPY_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+
+volumes:
+  db-data:
