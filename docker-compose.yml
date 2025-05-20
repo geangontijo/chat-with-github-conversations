@@ -20,7 +20,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@pgvector:5432/postgres
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - ANTHROPY_API_KEY=${ANTHROPY_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - GITHUB_TOKEN=${GITHUB_TOKEN}
 
 volumes:
